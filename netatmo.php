@@ -26,8 +26,9 @@ try {
 //Initialize public API with same authentication
 $public = new Netatmo\Clients\NAPublicApiClient($tokens);
 try {
+
     $publicData = $public->getData($SW['lat'], $NE['lat'], $SW['lon'], $NE['lon'], 'temperature', 'true');
-    var_dump($publicData['body'][0]['place']);
+
 } catch(Netatmo\Exceptions\NAClientException $ex) {
 	handleError("An error occured while retrieving public data: " . $ex->getMessage() . "\n", TRUE);
 }
@@ -35,6 +36,7 @@ try {
 if ($publicData['status'] == 'ok') {
 	$temp = 0;
 	$count = 0;
+	$altitude = 0;
 	foreach ($publicData['body'] as $body) {
 		foreach ($body['measures'] as $measures) {
 			if (isset($measures['type'][0]) && $measures['type'][0] == 'temperature') {
@@ -47,8 +49,14 @@ if ($publicData['status'] == 'ok') {
 			}
 		}
 	}
+	for($i = 0; $i < $count; $i++)
+	{
+		if (isset($publicData['body'][$i]['place']['altitude'])) {
+			$altitude += intval($publicData['body'][$i]['place']['altitude']);
+		}
+		
+	}
+	$alti = $altitude / $count;
     $temp = $temp / $count;
-    echo $count.' stations trouvées';
-	echo 'Température moyenne '.round($temp,2);
 }
 }

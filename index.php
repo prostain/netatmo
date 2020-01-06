@@ -10,13 +10,20 @@
 <body>
 <form action="index.php" method="post">
 <label for="adresse">Votre adresse </label>
-<input type="text" name="adresse" id="adresse">
-<br />
-<br />
+<?php if(isset($_POST['adresse'])){
+    ?>
+<input type="text" name="adresse" id="adresse" value="<?php echo $_POST['adresse']?>">
+<?php
+}
+else
+{
+    ?>
+    <input type="text" name="adresse" id="adresse">
+    <?php
+}
+?>
 <input type="submit" value="Envoyez">
 </form>
-<br>
-<br>
 <?php 
 /* Géocoding */
 if(isset($_POST['adresse'])){
@@ -43,7 +50,17 @@ include_once('netatmo.php');
 ?>
 <h1><?php echo $_POST['adresse'] ?> </h1>
     <div id="map" class="map"></div>
-
+        <div class="resultat ">
+            <p>
+                <strong>Latitude NE :</strong> <?php echo $positions[1]?><br>
+                <strong>Longitude NE :</strong> <?php echo $positions[3]?><br>
+                <strong>Latitude SW :</strong> <?php echo $positions[0]?><br>
+                <strong>Longitude SW :</strong> <?php echo $positions[2]?><?php echo $count?><br>
+                <strong>Température Moyenne :</strong> <?php echo round($temp,2)?> °C.<br>
+                <strong>Altitude Moyenne :</strong> <?php echo round($alti,2)?> mètres.<br>
+                <strong>Nombre de stations :</strong> <?php echo $count?> <br>
+            </p>
+        </div>
     <script src="js/leaflet/leaflet.js"></script>
     <script >
     ////////////// MAP //////////////
