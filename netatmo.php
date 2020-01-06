@@ -26,7 +26,8 @@ try {
 //Initialize public API with same authentication
 $public = new Netatmo\Clients\NAPublicApiClient($tokens);
 try {
-	$publicData = $public->getData($SW['lat'], $NE['lat'], $SW['lon'], $NE['lon'], 'temperature', 'true');
+    $publicData = $public->getData($SW['lat'], $NE['lat'], $SW['lon'], $NE['lon'], 'temperature', 'true');
+    var_dump($publicData['body'][0]['place']);
 } catch(Netatmo\Exceptions\NAClientException $ex) {
 	handleError("An error occured while retrieving public data: " . $ex->getMessage() . "\n", TRUE);
 }
