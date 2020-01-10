@@ -31,10 +31,7 @@ CREATE TABLE `cities` (
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `gps_lat` double(16,14) NOT NULL,
   `gps_lng` double(17,14) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `cities_department_code_foreign` (`department_code`),
-  CONSTRAINT `cities_department_code_foreign` FOREIGN KEY (`department_code`) REFERENCES `departments` (`code`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35854 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=35854 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
